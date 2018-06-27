@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "declaration": false,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitAny": false,
+    "outDir": "./bin",
+    "preserveConstEnums": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es5",
+    "sourceMap": false,
+    "lib": [
+      "es2015"
+    ]
+  },
+  "include": [
+    "bin-src/**/*.ts",
+    "custom_typings/**/*.ts"
+  ],
+  "exclude": [
+    "src",
+    "node_modules",
+    "**/*-spec.ts"
+  ]
+}
