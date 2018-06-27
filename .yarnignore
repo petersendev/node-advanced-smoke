@@ -6,3 +6,4 @@ node_modules
 tsconfig*
 .vscode
 !*.d.ts
+GitVersion.yml
