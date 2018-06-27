@@ -5,19 +5,51 @@ import * as smoke from "../dist";
 
 const logger = new smoke.DefaultLogger();
 
-// TODO: validate args
+const argv = yargs
+    .usage("Usage: $0 <url> [<url2> <url3> ...] [options]")
+    .option("status", {
+        desc: "HTTP status to validate",
+        alias: "s",
+        default: 200,
+        type: "number"
+    })
+    .option("method", {
+        desc: "HTTP method",
+        alias: "m",
+        default: "GET",
+        type: "string"
+    })
+    .option("timeout", {
+        desc: "Timeout",
+        alias: "t",
+        type: "number"
+    })
+    .option("resolveWithFullResponse", {
+        desc: "Full request or just head",
+        alias: "r",
+        type: "boolean",
+        default: true
+    })
+    .check((argv) =>
+    {
+        return !argv._;
+    })
+    .alias("h", "help")
+    .help()
+    .showHelpOnFail(true)
+    .argv;
 
-let urls = yargs.argv._;
+let urls = argv._;
 let opts = {
     url: null,
-    status: parseInt(yargs.argv.status, 10) || 200,
-    method: yargs.argv.method || "GET",
-    timeout: yargs.argv.timeout || null,
+    status: argv.status,
+    method: argv.method,
+    timeout: argv.timeout,
     resolveWithFullResponse: true
 };
 
-logger.log("initialize smoke test")
-logger.log(opts);
+logger.log("initialize smoke test");
+//logger.log(opts);
 
 (async (urls, opts) =>
 {
