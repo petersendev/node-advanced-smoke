@@ -1,6 +1,6 @@
 {
   "name": "advanced-smoke",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Web smoke tests with headers and retry",
   "main": "dist/index.js",
   "bin": "./bin/advanced-smoke.js",
