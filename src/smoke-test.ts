@@ -5,11 +5,16 @@ import { DefaultLogger } from "./default-logger";
 
 export async function smokeTest(opts: ISmokeTestOptions, logger?: ISmokeTestLogger): Promise<boolean>
 {
-    logger = logger || new DefaultLogger();
+    logger = logger || { log: () => { }, error: () => { } };
 
     logger.log("testing url", opts.url);
 
-    let res = await request(opts);
+    let res = await request(opts.url, {
+        method: opts.method,
+        timeout: opts.timeout,
+        headers: opts.headers,
+        resolveWithFullResponse: opts.resolveWithFullResponse
+    });
 
     if (res.statusCode === opts.status)
     {

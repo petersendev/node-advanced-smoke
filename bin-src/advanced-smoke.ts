@@ -19,6 +19,10 @@ const argv = yargs
         default: "GET",
         type: "string"
     })
+    .option("headers", {
+        desc: "Headers to send\nUse --headers.name value",
+        type: "array"
+    })
     .option("timeout", {
         desc: "Timeout",
         alias: "t",
@@ -29,10 +33,6 @@ const argv = yargs
         alias: "r",
         type: "boolean",
         default: true
-    })
-    .check((argv) =>
-    {
-        return !argv._;
     })
     .alias("h", "help")
     .help()
@@ -45,11 +45,11 @@ let opts = {
     status: argv.status,
     method: argv.method,
     timeout: argv.timeout,
-    resolveWithFullResponse: true
+    resolveWithFullResponse: argv.resolveWithFullResponse,
+    headers: argv.headers
 };
 
 logger.log("initialize smoke test");
-//logger.log(opts);
 
 (async (urls, opts) =>
 {

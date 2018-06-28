@@ -3,7 +3,11 @@ src
 bin-src
 node_modules
 .yarnignore
+.npmignore
 tsconfig*
 .vscode
 !*.d.ts
 GitVersion.yml
+*error.log
+*.tgz
+publish.txt

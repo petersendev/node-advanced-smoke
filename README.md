@@ -18,6 +18,12 @@ HTTP method used for the call
 
 default: `GET`
 
+## --headers
+Headers to send. Use dot-notation, ex:
+```
+advanced-smoke https://google.com --headers.MyHeader "Value with whitespaces"
+```
+
 ## --timeout, -t
 Timeout for the call
 
