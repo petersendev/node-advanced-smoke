@@ -16,7 +16,8 @@
         "build": "yarn run clean && yarn run tsc && yarn run clean-bin && yarn run tsc-bin",
         "test": "yarn run build && yarn run testOnly",
         "testOnly": "jest",
-        "coverage": "jest --coverage"
+        "coverage": "jest --coverage",
+        "postcoverage": "node ./tools/process-coverage-report.js"
     },
     "dependencies": {
         "chalk": "^2.4.1",
