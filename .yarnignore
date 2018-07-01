@@ -11,3 +11,7 @@ GitVersion.yml
 *error.log
 *.tgz
 publish.txt
+test-results
+coverage
+tests
+tools
