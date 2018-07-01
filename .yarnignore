@@ -13,3 +13,4 @@ GitVersion.yml
 publish.txt
 test-results
 coverage
+tests
