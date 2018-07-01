@@ -1,33 +1,67 @@
 {
-  "name": "advanced-smoke",
-  "version": "0.0.2",
-  "description": "Web smoke tests with headers and retry",
-  "main": "dist/index.js",
-  "bin": "./bin/advanced-smoke.js",
-  "repository": "https://github.com/petersendev/node-advanced-smoke",
-  "author": "Arne Petersen <arne@petersen.pro>",
-  "license": "MIT",
-  "scripts": {
-    "start": "ts-node src/index.ts",
-    "clean": "rimraf dist/*",
-    "clean-bin": "rimraf bin/*",
-    "tsc": "tsc --pretty --outDir dist",
-    "tsc-bin": "tsc -p tsconfig.bin.json --pretty --outDir bin",
-    "build": "yarn run clean && yarn run tsc && yarn run clean-bin && yarn run tsc-bin"
-  },
-  "dependencies": {
-    "@types/request-promise": "^4.1.41",
-    "chalk": "^2.4.1",
-    "http-https": "^1.0.0",
-    "request": "^2.87.0",
-    "request-promise": "^4.2.2",
-    "url": "^0.11.0",
-    "yargs": "^11.0.0"
-  },
-  "devDependencies": {
-    "@types/yargs": "^11.0.0",
-    "rimraf": "^2.6.2",
-    "ts-node": "^7.0.0",
-    "typescript": "^2.9.2"
-  }
+    "name": "advanced-smoke",
+    "version": "0.0.2",
+    "description": "Web smoke tests with headers and retry",
+    "main": "dist/index.js",
+    "bin": "./bin/advanced-smoke.js",
+    "repository": "https://github.com/petersendev/node-advanced-smoke",
+    "author": "Arne Petersen <arne@petersen.pro>",
+    "license": "MIT",
+    "scripts": {
+        "start": "ts-node src/index.ts",
+        "clean": "rimraf dist/*",
+        "clean-bin": "rimraf bin/*",
+        "tsc": "tsc --pretty --outDir dist",
+        "tsc-bin": "tsc -p tsconfig.bin.json --pretty --outDir bin",
+        "build": "yarn run clean && yarn run tsc && yarn run clean-bin && yarn run tsc-bin",
+        "test": "yarn run build && yarn run testOnly",
+        "testOnly": "jest",
+        "coverage": "jest --coverage"
+    },
+    "dependencies": {
+        "chalk": "^2.4.1",
+        "http-https": "^1.0.0",
+        "request": "^2.87.0",
+        "request-promise": "^4.2.2",
+        "url": "^0.11.0",
+        "yargs": "^11.0.0"
+    },
+    "devDependencies": {
+        "@types/jest": "^23.1.3",
+        "@types/request-promise": "^4.1.41",
+        "@types/yargs": "^11.0.0",
+        "jest": "^23.0.1",
+        "jest-junit": "^4.0.0",
+        "rimraf": "^2.6.2",
+        "ts-jest": "^22.4.6",
+        "ts-node": "^7.0.0",
+        "typescript": "^2.9.2",
+        "vsts-coverage-styles": "^1.0.7"
+    },
+    "jest": {
+        "transform": {
+            ".(ts)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+        },
+        "testMatch": [
+            "**/tests/**/*.spec.ts"
+        ],
+        "testPathIgnorePatterns": [
+            "/node_modules/",
+            "/bin-src/"
+        ],
+        "moduleFileExtensions": [
+            "ts",
+            "js"
+        ],
+        "testEnvironment": "node",
+        "testResultsProcessor": "jest-junit",
+        "coverageReporters": [
+            "text",
+            "lcov",
+            "cobertura"
+        ]
+    },
+    "jest-junit": {
+        "output": "./test-results/junit.xml"
+    }
 }
