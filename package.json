@@ -1,7 +1,7 @@
 {
     "name": "advanced-smoke",
     "version": "0.0.2",
-    "description": "Web smoke tests with headers and retry",
+    "description": "Web smoke tests with header and proxy support",
     "main": "dist/index.js",
     "bin": "./bin/advanced-smoke.js",
     "repository": "https://github.com/petersendev/node-advanced-smoke",

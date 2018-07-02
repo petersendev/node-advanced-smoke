@@ -5,7 +5,9 @@ export interface ISmokeTestOptions
     method: string;
     timeout: number;
     resolveWithFullResponse: boolean;
+    strictSSL: boolean;
     headers?: { [key: string]: any };
+    proxy?: string
 }
 
 export interface ISmokeTestLogger

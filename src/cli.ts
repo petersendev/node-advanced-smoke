@@ -40,6 +40,16 @@ export async function cli(processArgs: string[])
             type: "boolean",
             default: false
         })
+        .option("strictSSL", {
+            desc: "Whether SSL certificates are required to be valid",
+            type: "boolean",
+            default: true
+        })
+        .option("proxy", {
+            desc: "Proxy server to use for the request.\nHTTP(S)_PROXY, NO_PROXY and ADVANCED_SMOKE_PROXY environment variables are also supported",
+            alias: "p",
+            type: "string"
+        })
         .alias("h", "help")
         .help()
         .showHelpOnFail(true)
@@ -59,7 +69,9 @@ export async function cli(processArgs: string[])
             method: argv.method,
             timeout: argv.timeout,
             resolveWithFullResponse: argv.resolveWithFullResponse,
-            headers: argv.headers
+            headers: argv.headers,
+            strictSSL: argv.strictSSL,
+            proxy: argv.proxy
         }
 
         try
