@@ -49,7 +49,9 @@ describe("the cli", () =>
             method: "GET",
             resolveWithFullResponse: true,
             status: 200,
-            timeout: undefined
+            timeout: undefined,
+            strictSSL: true,
+            proxy: undefined
         }
 
         expect(mockSmokeTest.mock.calls[0][0]).toEqual(expected);
@@ -68,7 +70,9 @@ describe("the cli", () =>
             method: "GET",
             resolveWithFullResponse: true,
             status: 200,
-            timeout: undefined
+            timeout: undefined,
+            strictSSL: true,
+            proxy: undefined
         }
 
         expect(mockSmokeTest.mock.calls[0][0]).toEqual(expected);
@@ -89,7 +93,9 @@ describe("the cli", () =>
             method: "GET",
             resolveWithFullResponse: true,
             status: 200,
-            timeout: undefined
+            timeout: undefined,
+            strictSSL: true,
+            proxy: undefined
         }
 
         expect(mockSmokeTest.mock.calls[0][0]).toEqual(expected);
@@ -110,7 +116,9 @@ describe("the cli", () =>
             method: "GET",
             resolveWithFullResponse: true,
             status: 400,
-            timeout: undefined
+            timeout: undefined,
+            strictSSL: true,
+            proxy: undefined
         }
 
         expect(mockSmokeTest.mock.calls[0][0]).toEqual(expected);
@@ -131,7 +139,9 @@ describe("the cli", () =>
             method: "POST",
             resolveWithFullResponse: true,
             status: 200,
-            timeout: undefined
+            timeout: undefined,
+            strictSSL: true,
+            proxy: undefined
         }
 
         expect(mockSmokeTest.mock.calls[0][0]).toEqual(expected);
@@ -152,7 +162,9 @@ describe("the cli", () =>
             method: "GET",
             resolveWithFullResponse: true,
             status: 200,
-            timeout: 500
+            timeout: 500,
+            strictSSL: true,
+            proxy: undefined
         }
 
         expect(mockSmokeTest.mock.calls[0][0]).toEqual(expected);
@@ -173,7 +185,55 @@ describe("the cli", () =>
             method: "GET",
             resolveWithFullResponse: false,
             status: 200,
-            timeout: undefined
+            timeout: undefined,
+            strictSSL: true,
+            proxy: undefined
+        }
+
+        expect(mockSmokeTest.mock.calls[0][0]).toEqual(expected);
+        expected.url = "https://github.com";
+        expect(mockSmokeTest.mock.calls[1][0]).toEqual(expected);
+    });
+
+    it("should call smokeTest with the expected parameters for multiple urls and the strictSSL option", async () =>
+    {
+        const res = await cli(getCliArgs("https://google.com", "https://github.com", "--strictSSL", "false"));
+        expect(res).toBe(0);
+
+        expect(mockSmokeTest).toHaveBeenCalledTimes(2);
+
+        let expected: ISmokeTestOptions = {
+            url: "https://google.com",
+            headers: undefined,
+            method: "GET",
+            resolveWithFullResponse: true,
+            status: 200,
+            timeout: undefined,
+            strictSSL: false,
+            proxy: undefined
+        }
+
+        expect(mockSmokeTest.mock.calls[0][0]).toEqual(expected);
+        expected.url = "https://github.com";
+        expect(mockSmokeTest.mock.calls[1][0]).toEqual(expected);
+    });
+
+    it("should call smokeTest with the expected parameters for multiple urls and the proxy option", async () =>
+    {
+        const res = await cli(getCliArgs("https://google.com", "https://github.com", "--proxy", "http://127.0.0.1:8888"));
+        expect(res).toBe(0);
+
+        expect(mockSmokeTest).toHaveBeenCalledTimes(2);
+
+        let expected: ISmokeTestOptions = {
+            url: "https://google.com",
+            headers: undefined,
+            method: "GET",
+            resolveWithFullResponse: true,
+            status: 200,
+            timeout: undefined,
+            strictSSL: true,
+            proxy: "http://127.0.0.1:8888"
         }
 
         expect(mockSmokeTest.mock.calls[0][0]).toEqual(expected);
@@ -190,7 +250,9 @@ describe("the cli", () =>
             "--status", "400",
             "--method", "POST",
             "--timeout", "500",
-            "--resolveWithFullResponse", "false"));
+            "--resolveWithFullResponse", "false",
+            "--strictSSL", "false",
+            "--proxy", "http://127.0.0.1:8888"));
         expect(res).toBe(0);
 
         expect(mockSmokeTest).toHaveBeenCalledTimes(2);
@@ -201,7 +263,9 @@ describe("the cli", () =>
             method: "POST",
             resolveWithFullResponse: false,
             status: 400,
-            timeout: 500
+            timeout: 500,
+            strictSSL: false,
+            proxy: "http://127.0.0.1:8888"
         }
 
         expect(mockSmokeTest.mock.calls[0][0]).toEqual(expected);
@@ -209,8 +273,10 @@ describe("the cli", () =>
         expect(mockSmokeTest.mock.calls[1][0]).toEqual(expected);
     });
 
-    it("should handle errors", async () => { 
-        mockSmokeTest.mockImplementationOnce(()=>{
+    it("should handle errors", async () =>
+    {
+        mockSmokeTest.mockImplementationOnce(() =>
+        {
             throw new Error("mocked exception");
         })
         const res = await cli(getCliArgs("https://google.com"));
