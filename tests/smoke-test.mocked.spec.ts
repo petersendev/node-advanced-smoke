@@ -14,7 +14,7 @@ jest.mock("request-promise", () =>
 
 const mockRequest = <jest.Mock><any>request;
 
-describe("the smoke test", () =>
+describe("the smoke test (with mocked request-promise)", () =>
 {
     beforeEach(() =>
     {
