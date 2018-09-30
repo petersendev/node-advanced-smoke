@@ -12,7 +12,8 @@ describe("the smoke test", () =>
             method: "GET",
             resolveWithFullResponse: true,
             status: 200,
-            timeout: undefined
+            timeout: undefined,
+            strictSSL: true
         };
 
         const res = await smokeTest(opts);
@@ -28,7 +29,8 @@ describe("the smoke test", () =>
             method: "POST",
             status: 200,
             timeout: 500,
-            resolveWithFullResponse: true
+            resolveWithFullResponse: true,
+            strictSSL: true
         };
 
         const res = await smokeTest(opts);
@@ -44,7 +46,8 @@ describe("the smoke test", () =>
             method: "POST",
             resolveWithFullResponse: false,
             status: 400,
-            timeout: 500
+            timeout: 500,
+            strictSSL: true
         };
 
         const res = await smokeTest(opts);
@@ -60,7 +63,8 @@ describe("the smoke test", () =>
             method: "POST",
             resolveWithFullResponse: false,
             status: 405,
-            timeout: 500
+            timeout: 500,
+            strictSSL: true
         };
 
         const res = await smokeTest(opts);
@@ -76,7 +80,8 @@ describe("the smoke test", () =>
             method: "POST",
             resolveWithFullResponse: false,
             status: 405,
-            timeout: 500
+            timeout: 500,
+            strictSSL: true
         };
 
         return expect(smokeTest(opts)).rejects.toBeTruthy();

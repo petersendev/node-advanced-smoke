@@ -14,7 +14,7 @@ jest.mock("request-promise", () =>
 
 const mockRequest = <jest.Mock><any>request;
 
-describe("the smoke test", () =>
+describe("the smoke test (with mocked request-promise)", () =>
 {
     beforeEach(() =>
     {
@@ -29,7 +29,8 @@ describe("the smoke test", () =>
             method: "GET",
             resolveWithFullResponse: true,
             status: 200,
-            timeout: undefined
+            timeout: undefined,
+            strictSSL: true
         };
 
         const res = await smokeTest(opts);
