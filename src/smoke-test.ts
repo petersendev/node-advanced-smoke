@@ -16,7 +16,9 @@ export async function smokeTest(opts: ISmokeTestOptions, logger?: ISmokeTestLogg
             method: opts.method,
             timeout: opts.timeout,
             headers: opts.headers,
-            resolveWithFullResponse: opts.resolveWithFullResponse
+            resolveWithFullResponse: opts.resolveWithFullResponse,
+            strictSSL: opts.strictSSL,
+            proxy: opts.proxy || process.env.ADVANCED_SMOKE_PROXY
         });
     }
     catch (e)
@@ -33,11 +35,11 @@ export async function smokeTest(opts: ISmokeTestOptions, logger?: ISmokeTestLogg
 
     if (res.statusCode === opts.status)
     {
-        logger.log("statusCode", res.statusCode, ", expected", opts.status);
+        logger.log(`SUCCESS: received status code ${res.statusCode}, expected ${opts.status}`);
     }
     else
     {
-        logger.error("statusCode", res.statusCode, ", expected", opts.status);
+        logger.error(`FAILURE: received status code ${res.statusCode}, expected ${opts.status}`);
         return false;
     }
 

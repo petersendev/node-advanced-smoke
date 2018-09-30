@@ -13,7 +13,8 @@ describe("the smoke test", () =>
             resolveWithFullResponse: true,
             status: 200,
             timeout: undefined,
-            strictSSL: true
+            strictSSL: true,
+            proxy: undefined
         };
 
         const res = await smokeTest(opts);
@@ -30,7 +31,7 @@ describe("the smoke test", () =>
             status: 200,
             timeout: 500,
             resolveWithFullResponse: true,
-            strictSSL: true
+            strictSSL: false
         };
 
         const res = await smokeTest(opts);
@@ -47,7 +48,8 @@ describe("the smoke test", () =>
             resolveWithFullResponse: false,
             status: 400,
             timeout: 500,
-            strictSSL: true
+            strictSSL: true,
+            proxy: undefined
         };
 
         const res = await smokeTest(opts);
@@ -86,5 +88,4 @@ describe("the smoke test", () =>
 
         return expect(smokeTest(opts)).rejects.toBeTruthy();
     });
-
 });
